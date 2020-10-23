@@ -7,9 +7,15 @@
  * Svetha
  * Alvin
  */
+#include "MeMCore.h"
 
 //define the required variables here
 int motorspeed = ;
+
+//move forward
+void forward(){
+  
+}
 
 //turn right
 void right_turn(){
@@ -22,8 +28,10 @@ void left_turn(){
 }
 
 //detect black strip
-void black_strip(){
+bool black_strip(){
   //stop
+  //play tune
+  //stop arduino from moving
 }
 
 //ultrasound(distance in front)
@@ -32,6 +40,21 @@ float dist_front() {
   return dist;
 }
 
+//colour challenge
+void colour_challenge(){
+  //detect color 
+  if (colour //parameters here) {
+      red_task();
+      }
+      else if (//parameters){
+        green_task();
+        }
+        else if (//parameters) {
+          yellow_task();
+          }
+          else if(//parameters) {
+            
+}
 //red (left turn)
 void red_task(){
   left_turn();
@@ -75,3 +98,13 @@ void black_task(){
   
 }
 
+void setup(){
+  
+}
+
+void loop() {
+  forward();
+  if(black_strip()){
+    color_challenge();
+  }
+}
