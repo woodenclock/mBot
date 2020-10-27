@@ -8,9 +8,9 @@
 MeLightSensor lightsensor(PORT_6);
 MeRGBLed rgbled(PORT_7);
 
-double RED;
-double GREEN;
-double BLUE;
+double red;
+double green;
+double blue;
 
 float colourarr[]={0,0,0};
 
@@ -29,19 +29,22 @@ void color_detect_test(){
   rgbled.setColor(255,0,0);
   rgbled.show();
   delay(1000);
-  RED = lightsensor.read();
+  red = lightsensor.read();
 
   rgbled.setColor(0,255,0);
   rgbled.show();
   delay(1000);
-  GREEN = lightsensor.read();
+  green = lightsensor.read();
 
   rgbled.setColor(0,0,255);
   rgbled.show();
   delay(1000);
-  BLUE = lightsensor.read();
+  blue = lightsensor.read();
 
-  Serial.println("Red value is" + RED);
-  Serial.println("Green value is" + GREEN);
-  Serial.println("Blue value is" + BLUE);
+  Serial.print("Red value is ");
+  Serial.println(red);
+  Serial.print("Green value is ");
+  Serial.println(green);
+  Serial.print("Blue value is ");
+  Serial.println(blue);
 }
