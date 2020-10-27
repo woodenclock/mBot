@@ -16,5 +16,5 @@ void loop()
     case S1_OUT_S2_OUT: Serial.println("Sensor 1 and 2 are outside of black line"); break;
     default: break;
   }
-  delay(200);
+  delay(100);
 }
