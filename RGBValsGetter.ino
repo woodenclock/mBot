@@ -2,7 +2,7 @@
  * Code to use light sensor to detect color components RGB
  */
 
-#include "MeMCore"
+#include "MeMCore.h"
 #include "Wire.h"
 
 MeLightSensor lightsensor(PORT_6);
