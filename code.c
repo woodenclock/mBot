@@ -11,26 +11,29 @@
 
 //define the required variables here
 int motorspeed = 100;
+MeDCMotor motor_right(M1);
+
+MeDCMotor motor_left(M2);
 
 //move forward
 void forward()
 {
- motor1.run(+motorSpeed); 
- motor2.run(-motorSpeed);  
+ motor_right.run(+motorSpeed); 
+ motor_left.run(-motorSpeed);  
 }
 
 //turn right
 void right_turn()
 {
- motor1.run(+motorSpeed); 
- motor2.run(+motorSpeed);
+ motor_right.run(+motorSpeed); 
+ motor_left.run(+motorSpeed);
 }
 
 //turn left
 void left_turn()
 {
-motor1.run(-motorSpeed); 
-motor2.run(-motorSpeed);  
+motor_right.run(-motorSpeed); 
+motor_left.run(-motorSpeed);  
 }
 
 //detect black strip
