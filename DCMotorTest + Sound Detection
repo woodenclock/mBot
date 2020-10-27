@@ -40,15 +40,11 @@ void loop()
   delay(100); /* the minimal measure interval is 100 milliseconds */
   
   motor1.run(+motorSpeed); /* value: between -255 and 255. */
-  motor2.run(-motorSpeed); /* value: between -255 and 255. */
   motor3.run(+motorSpeed);
-  motor4.run(-motorSpeed);
   
   if ( duration < 8){
   motor1.run(+motorSpeed);
-  motor2.run(+motorSpeed);
   motor3.run(+motorSpeed);
-  motor4.run(+motorSpeed);
   delay(1100);
   } 
 }
