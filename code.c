@@ -22,15 +22,15 @@ void forward()
 //turn right
 void right_turn()
 {
- motor1.run(-motorSpeed); 
- motor2.run(-motorSpeed);
+ motor1.run(+motorSpeed); 
+ motor2.run(+motorSpeed);
 }
 
 //turn left
 void left_turn()
 {
-motor1.run(+motorSpeed); 
-motor2.run(+motorSpeed);  
+motor1.run(-motorSpeed); 
+motor2.run(-motorSpeed);  
 }
 
 //detect black strip
