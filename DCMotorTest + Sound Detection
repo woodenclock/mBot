@@ -1,14 +1,14 @@
 #include "MeMCore.h"
 /**
- * For Motor 1, which is the Right Wheel, 
+ * For Motor_Right, 
  * '+' is Forward, '-' is Backward.
- * For Motor 2, which is the Left Wheel, 
+ * For Motor_Left, 
  * '-' is Forward, '+' is Backward.
  */
 
-MeDCMotor motor1(M1);
+MeDCMotor motor_right(M1);
 
-MeDCMotor motor2(M2);
+MeDCMotor motor_left(M2);
 
 MeUltrasonicSensor ultraSensor(PORT_3); /* Ultrasonic module can ONLY be connected to port 3, 4, 6, 7, 8 of base shield. */
 
@@ -22,12 +22,12 @@ void loop()
   int duration = ultraSensor.distanceCm();
   delay(100); /* the minimal measure interval is 100 milliseconds */
  
-  motor1.run(-motorSpeed);
-  motor2.run(+motorSpeed);
+  motor_right.run(-motorSpeed);
+  motor_left.run(+motorSpeed);
   
   if ( duration < 8){
-  motor1.run(+motorSpeed);
-  motor2.run(+motorSpeed);
+  motor_right.run(+motorSpeed);
+  motor_left.run(+motorSpeed);
   delay(1100);
   } 
 }
