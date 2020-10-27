@@ -10,25 +10,32 @@
 #include "MeMCore.h"
 
 //define the required variables here
-int motorspeed = ;
+int motorspeed = 100;
 
 //move forward
-void forward(){
-  
+void forward()
+{
+ motor1.run(+motorSpeed); 
+ motor2.run(-motorSpeed);  
 }
 
 //turn right
-void right_turn(){
-  
+void right_turn()
+{
+ motor1.run(-motorSpeed); 
+ motor2.run(-motorSpeed);
 }
 
 //turn left
-void left_turn(){
-  
+void left_turn()
+{
+motor1.run(+motorSpeed); 
+motor2.run(+motorSpeed);  
 }
 
 //detect black strip
-bool black_strip(){
+bool black_strip()
+{
   //stop
   //play tune
   //stop arduino from moving
