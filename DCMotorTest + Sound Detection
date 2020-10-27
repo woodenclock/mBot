@@ -1,8 +1,8 @@
 #include "MeMCore.h"
 /**
- * For Motor_Right, 
+ * For motor_right, 
  * '+' is Forward, '-' is Backward.
- * For Motor_Left, 
+ * For motor_left, 
  * '-' is Forward, '+' is Backward.
  */
 
