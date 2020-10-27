@@ -2,7 +2,7 @@
  * mBot code for Group 3a2
  *
  * Members:
- * Sung Min
+ * Sungmin
  * Kishor
  * Svetha
  * Alvin
