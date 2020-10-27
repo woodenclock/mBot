@@ -1,50 +1,33 @@
-/**
- * \par Copyright (C), 2012-2016, MakeBlock
- * @file    DCMotorDriverTest.ino
- * @author  MakeBlock
- * @version V1.0.0
- * @date    2015/09/09
- * @brief   Description: this file is sample code for Me DC motor device.
- *
- * Function List:
- *    1. void MeDCMotor::run(int16_t speed)
- *    2. void MeDCMotor::stop(void)
- *
- * \par History:
- * <pre>
- * <Author>     <Time>        <Version>      <Descr>
- * Mark Yan     2015/09/09    1.0.0          rebuild the old lib
- * </pre>
- */
 #include "MeMCore.h"
+/**
+ * For Motor 1, which is the Right Wheel, 
+ * '+' is Forward, '-' is Backward.
+ * For Motor 2, which is the Left Wheel, 
+ * '-' is Forward, '+' is Backward.
+ */
 
-MeDCMotor motor1(PORT_1);
+MeDCMotor motor1(M1);
 
-MeDCMotor motor2(PORT_2);
-
-MeDCMotor motor3(M1);
-
-MeDCMotor motor4(M2);
+MeDCMotor motor2(M2);
 
 MeUltrasonicSensor ultraSensor(PORT_3); /* Ultrasonic module can ONLY be connected to port 3, 4, 6, 7, 8 of base shield. */
 
 uint8_t motorSpeed = 100;
 
-void setup()
-{
+void setup(){
 }
 
 void loop()
 {
   int duration = ultraSensor.distanceCm();
   delay(100); /* the minimal measure interval is 100 milliseconds */
-  
-  motor1.run(+motorSpeed); /* value: between -255 and 255. */
-  motor3.run(+motorSpeed);
+ 
+  motor1.run(-motorSpeed);
+  motor2.run(+motorSpeed);
   
   if ( duration < 8){
   motor1.run(+motorSpeed);
-  motor3.run(+motorSpeed);
+  motor2.run(+motorSpeed);
   delay(1100);
   } 
 }
