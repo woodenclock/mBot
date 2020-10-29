@@ -1,0 +1,28 @@
+#include "MeMCore.h"
+/**
+ * For motor_right, 
+ * '+' is Forward, '-' is Backward.
+ * For motor_left, 
+ * '-' is Forward, '+' is Backward.
+ */
+
+MeDCMotor motor_right(M1);
+
+MeDCMotor motor_left(M2);
+
+MeUltrasonicSensor ultraSensor(PORT_3); /* Ultrasonic module can ONLY be connected to port 3, 4, 6, 7, 8 of base shield. */
+
+uint8_t motorSpeed = 100;
+
+void setup(){
+}
+
+void loop()
+{
+  motor_right.run(+motorSpeed);
+  motor_left.run(+motorSpeed);
+  delay(1250);
+  motor_right.stop();
+  motor_left.stop();
+  delay(1000);
+}
