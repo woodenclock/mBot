@@ -1,0 +1,31 @@
+#include "MeMCore.h"
+
+MeLineFollower lineFinder(PORT_3); 
+MeDCMotor motor_right(M1);
+
+MeDCMotor motor_left(M2);
+uint8_t motorSpeed = 100;
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int sensorState = lineFinder.readSensors();
+  switch(sensorState)
+  {
+    case S1_IN_S2_IN:
+    motor_right.stop();
+    motor_left.stop();
+    break;
+    case S1_IN_S2_OUT: 
+    case S1_OUT_S2_IN: 
+    case S1_OUT_S2_OUT:
+    motor_right.run(+motorSpeed); 
+    motor_left.run(-motorSpeed); 
+    break;
+    default: 
+    break;
+  }
+}
