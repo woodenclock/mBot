@@ -15,11 +15,20 @@ MeDCMotor motor_right(M1);
 
 MeDCMotor motor_left(M2);
 
+//stop 
+void stop()
+{
+   motor_right.stop();
+   motor_left.stop();
+} 
+
 //move forward
 void forward()
 {
  motor_right.run(+motorSpeed); 
- motor_left.run(-motorSpeed);  
+ motor_left.run(-motorSpeed);
+ stop();
+ //then readjust
 }
 
 //turn right
@@ -27,21 +36,24 @@ void right_turn()
 {
  motor_right.run(+motorSpeed); 
  motor_left.run(+motorSpeed);
+ stop();
+ //then readjust
 }
 
 //turn left
 void left_turn()
 {
 motor_right.run(-motorSpeed); 
-motor_left.run(-motorSpeed);  
+motor_left.run(-motorSpeed); 
+ stop();
+ //then readjust
 }
 
 //detect black strip
 bool black_strip()
 {
-  //stop
-  //play tune
-  //stop arduino from moving
+  stop(); //stop
+  
 }
 
 //ultrasound(distance in front)
@@ -63,8 +75,15 @@ void colour_challenge(){
           yellow_task();
           }
           else if(//parameters) {
-            
+            purple_task();
+           }
+           else if(//parameters) {
+             lightblue_task();
+            }
+             else if(//parameters) {
+               black_task();
 }
+            
 //red (left turn)
 void red_task(){
   left_turn();
@@ -72,7 +91,7 @@ void red_task(){
 
 //green (right turn)
 void green_task(){
-  right_turn()
+  right_turn();
 }
 
 //yellow (U-turn within same grid)
@@ -105,7 +124,9 @@ void lightblue_task(){
 
 //black (make noise)
 void black_task(){
-  
+  stop();
+  music();
+  exit(0);
 }
 
 void setup(){
