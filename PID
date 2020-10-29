@@ -1,0 +1,28 @@
+#include <PID_v1.h>
+//PORT 4
+#define LEFT_IR A1
+#define RIGHT_IR A0
+double SetpointLeft, InputLeft, OutputLeft;
+double SetpointRight, InputRight, OutputRight;
+
+PID leftPID(&InputLeft, &OutputLeft, &SetpointLeft,0.5,0.2,0, DIRECT);
+PID rightPID(&InputRight, &OutputRight, &SetpointRight,0.5,0.2,0, DIRECT);
+
+void setup()
+{
+double sum_left = 0, sum_right = 0;
+ int i;
+for (i = 0; i < 10; i++) 
+{
+    InputRight = analogRead(RIGHT_IR);
+    InputLeft = analogRead(LEFT_IR);
+    sum_left += InputLeft;
+    sum_right += InputRight;
+    delay(100);
+ }
+ SetpointLeft = sum_left/10;
+ SetpointRight = sum_right/10;
+ // turn PID on
+ leftPID.SetMode(AUTOMATIC);
+ rightPID.SetMode(AUTOMATIC);
+}
