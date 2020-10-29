@@ -14,6 +14,16 @@ int motorspeed = 100;
 MeDCMotor motor_right(M1);
 
 MeDCMotor motor_left(M2);
+int a = 0;
+int b = 0;
+float = left , right , leftbound , rightbound;
+
+//stop
+void stop()
+{
+  motor_right.stop();
+  mototr_left.stop();
+}
 
 //move forward
 void forward()
@@ -39,9 +49,9 @@ motor_left.run(-motorSpeed);
 //detect black strip
 bool black_strip()
 {
-  //stop
-  //play tune
-  //stop arduino from moving
+   stop(); //stop
+   //play tune
+   //stop arduino from moving
 }
 
 //ultrasound(distance in front)
@@ -63,7 +73,10 @@ void colour_challenge(){
           yellow_task();
           }
           else if(//parameters) {
-            
+            purple_task();
+           else if(//parameters) {
+              lightblue_task();
+            }
 }
 //red (left turn)
 void red_task(){
@@ -72,7 +85,7 @@ void red_task(){
 
 //green (right turn)
 void green_task(){
-  right_turn()
+  right_turn();
 }
 
 //yellow (U-turn within same grid)
@@ -87,7 +100,7 @@ void purple_task(){
   while(dist_front() > 4) {
     //go straight
   }    
-  //stop
+  stop(); //stop
   left_turn();
   }
 }
@@ -98,17 +111,19 @@ void lightblue_task(){
   while(dist_front() > 4) {
     //go straight
   }    
-  //stop
+  stop(); //stop
  right_turn();
   }
 }
 
 //black (make noise)
 void black_task(){
+     stop();
   
 }
 
 void setup(){
+  
   
 }
 
