@@ -37,12 +37,89 @@ void loop() {
 }
 
 void mbotactions(){
-  //move forward till it hits black strip
-  //detect color on top
-  //carry out appropriate action
+  //check for black strip
+  int sensorState = lineFinder.readSensors();
+  switch(sensorState)
+  {
+    case S1_IN_S2_IN:
+    motor_right.stop();
+    motor_left.stop();
+    colour_check();
+    break;
+    case S1_IN_S2_OUT: 
+    case S1_OUT_S2_IN: 
+    case S1_OUT_S2_OUT:
+    motor_right.run(+motorSpeed); 
+    motor_left.run(-motorSpeed); 
+    break;
+    default: 
+    break;
+  }
+}
+
+void turn_left() {//change delay to change left turn angle
+  motor_right.run(+motorSpeed); 
+  motor_left.run(+motorSpeed);
+  delay(890);
+}
+
+void turn_right() {
+  motor_right.run(-motorSpeed); 
+  motor_left.run(-motorSpeed);
+  delay(890);
+}
+
+void black(){
+  //play music
+}
+
+void red(){
+  turn_left();
+}
+
+void green() {
+  turn_right();
+}
+
+void blue() {
+  turn_right();
+  int dist = ultraSensor.distanceCm();
+  delay(100);
+  while(dist > 4) {
+    motor_right.run(+motorSpeed); 
+    motor_left.run(-motorSpeed);
+    dist = ultraSensor.distanceCm();
+    delay(100);
+  }
+  motor_right.stop();
+  motor_left.stop();
+  turn_right();
+  
+}
+
+void yellow(){
+  turn_left();
+  turn_left();
+}
+
+void purple(){
+  turn_left();
+  int dist = ultraSensor.distanceCm();
+  delay(100);
+  while(dist > 4) {
+    motor_right.run(+motorSpeed); 
+    motor_left.run(-motorSpeed);
+    dist = ultraSensor.distanceCm();
+    delay(100);
+  }
+  motor_right.stop();
+  motor_left.stop();
+  turn_left();
 }
 
 void colour_check(){
+  int count = 0;
+  while (count < 3) { // checks a max of 3 times. If fail detect all 3 times, the robot will just continue going forward and crash
   rgbled.setColor(255,0,0);
   rgbled.show();
   delay(1000);
@@ -63,12 +140,33 @@ void colour_check(){
 
   rgbled.setColor(0,0,0);
   rgbled.show();
-   
-  //condition for red
-  //condition for blue
-  //condition for purple
-  //condition for yellow
-  //condition for green
-  //condition for black
-  //ending else check again?
+  
+  if (RED < 20 && GREEN < 20 && BLUE < 20) {
+    black();
+    count = 3;
+  }
+  else if (abs(GREEN-BLUE) < 20 && RED > GREEN) {
+    red();
+    count = 3;
+  }
+  else if (RED > 200 & RED > GREEN && GREEN > BLUE) {
+    yellow();
+    count = 3;
+  }
+  else if(abs(RED-GREEN) < 20 && BLUE < RED) {
+    purple(); 
+    count = 3;
+  }
+  else if(abs(GREEN-BLUE) < 20 && RED < GREEN) {
+    blue();
+    count = 3;
+  }
+  else if(abs(RED-BLUE) < 20 && GREEN > BLUE) {
+    green();
+    count = 3
+  }
+  else {
+    count += 1;
+  }
+  
 }
