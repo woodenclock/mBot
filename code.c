@@ -12,7 +12,6 @@
 //define the required variables here
 int motorspeed = 100;
 MeDCMotor motor_right(M1);
-
 MeDCMotor motor_left(M2);
 
 //stop 
@@ -52,7 +51,7 @@ motor_left.run(-motorSpeed);
 //detect black strip
 bool black_strip()
 {
-  stop(); //stop
+  //Line follower code
   
 }
 
