@@ -9,28 +9,30 @@
  */
 #include "MeMCore.h"
 
-//define the required variables here
-int motorspeed = 100;
-MeDCMotor motor_right(M1);
-MeDCMotor motor_left(M2);
+MeLineFollower lineFinder(PORT_2); //TO STOP AT THE BLACK STRIP 
+MeUltrasonicSensor ultraSensor(PORT_3); //MEASURE DISTANCE BETWEEN WALL AND MBOT 
+MeLightSensor lightsensor(PORT_6); //FOR COLOR DETECTION ON TOP
+MeRGBLed rgbled(PORT_7); //FOR COLOR DETECTION ON TOP
+MeDCMotor motor_right(M1); //RIGHT WHEEL
+MeDCMotor motor_left(M2); //LEFT WHEEL
 
-//stop 
+int motorspeed = 100;
+
+//Stop 
 void stop()
 {
    motor_right.stop();
    motor_left.stop();
 } 
 
-//move forward
+//Move Forward
 void forward()
 {
  motor_right.run(+motorSpeed); 
  motor_left.run(-motorSpeed);
- stop();
- //then readjust
 }
 
-//turn right
+//Turn Right
 void right_turn()
 {
  motor_right.run(+motorSpeed); 
@@ -39,32 +41,31 @@ void right_turn()
  //then readjust
 }
 
-//turn left
+//Turn Left
 void left_turn()
 {
 motor_right.run(-motorSpeed); 
 motor_left.run(-motorSpeed); 
- stop();
+
  //then readjust
 }
 
-//detect black strip
+//Detect Black Strip
 bool black_strip()
 {
   //Line follower code
-  
 }
 
-//ultrasound(distance in front)
+//Ultrasound (distance from wall)
 float dist_front() {
-  float dist = ;
+  float dist = ultraSensor.distanceCm();
   return dist;
 }
 
 //colour challenge
 void colour_challenge(){
   //detect color 
-  if (colour //parameters here) {
+  if (//parameters here) {
       red_task();
       }
       else if (//parameters){
