@@ -34,7 +34,7 @@ negative range, or greater than 255, which is our reason for using comparisons b
 (elab more on calib)
 
 4. End Music
-The end music is played through the buzzer on the mBot. It is a very simplified version of the Mr Bean animated series closing theme, and the values of frequencies of each
+The end music is played through the buzzer on the mBot. It is a very simplified version of Astronomia, and the values of frequencies of each
 note was taken from the makeblock example codes for the buzzer test. 
 
 ITEM 4:
