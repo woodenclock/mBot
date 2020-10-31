@@ -1,0 +1,44 @@
+ITEM 1:
+
+Cover Page with Studio Group Number, Team Number and names
+
+ITEM 2:
+
+Flowchart for algorithm.
+
+Moves foward, adjust direction based on IR sensors.
+Detect Black Line,
+Stop,
+Colour Challenge,
+Execute Colour Challengge
+Repeat
+
+ITEM 3:
+
+Subsystem implementation
+
+1. IR sensors
+
+2. Colour sensors(Black Line)
+
+3. Color Challenge Color Detection
+In the studio that we did for detecting color with an LDR, the resistance and hence voltage changed with the intensity of the light. Here, 
+we made use of the light intensity to determine the color of the paper above the robot. The process is as follows: The robot has 2 leds at the top which can emit light, and we
+set them to emit red, green then blue light in order, and detect the intensities of the light in order, before converting them to their rough RGB values. In the code, we did not specify 
+exactly what range of RGB values to consider for each color, rather, we used a comparison of the colour components to determine what challenge to execute. (show code here and link)
+
+The calibration was done during a studio session 2 weeks before the final presentation. It involved using the mBot to obtain the light intensity values for white and black papers.
+The difference between the intensities is taken, and stored in an array in the actual code for the mBot. When the mBot executes its color detection sequence, it compares the intensities
+it captures with the array from calibration, and scales it to 255, to get the RGB values. This would also mean that for some cases, it is possible that we obtain RGB values in the
+negative range, or greater than 255, which is our reason for using comparisons between the red/blue/green intensities to determine the color overhead.
+(elab more on calib)
+
+4. End Music
+The end music is played through the buzzer on the mBot. It is a very simplified version of the Mr Bean animated series closing theme, and the values of frequencies of each
+note was taken from the makeblock example codes for the buzzer test. 
+
+ITEM 4:
+
+work split
+
+
