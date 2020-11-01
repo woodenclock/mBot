@@ -16,12 +16,25 @@ Repeat
 ITEM 3:
 
 Subsystem implementation
+1. Movement of the mBot
+Right:
+To achieve movement toward the right, the right motor spins in the forward direction while the left motor spins in the backward direction.
+Left:
+To achieve movement toward the left, the left motor spins in the forward direction while the right motor spins in the backward direction.
+Forward:
+To achieve movement in the forward direction, both the motors spin at the same time in the same direction.
+U turn to the right:
+We implement the movement in the right direction, but we pause the program for more time by increasing the argument to the delay() function.
+U turn to the left:
+We implement the movement in the left direction, but we pause the program for more time by increasing the argument to the delay() function.
 
-1. IR sensors
+2. IR sensors
 
-2. Colour sensors(Black Line)
+3.. Colour sensors(Black Line)
+There are two IR sensors at the base of the mBot. If both the IR sensors are within the black line, the mBot stops and solves the waypoint(Color Detection) challenge,else
+it continues to move.
 
-3. Color Challenge Color Detection
+4. Color Challenge Color Detection
 In the studio that we did for detecting color with an LDR, the resistance and hence voltage changed with the intensity of the light. Here, 
 we made use of the light intensity to determine the color of the paper above the robot. The process is as follows: The robot has 2 leds at the top which can emit light, and we
 set them to emit red, green then blue light in order, and detect the intensities of the light in order, before converting them to their rough RGB values. In the code, we did not specify 
@@ -33,7 +46,7 @@ it captures with the array from calibration, and scales it to 255, to get the RG
 negative range, or greater than 255, which is our reason for using comparisons between the red/blue/green intensities to determine the color overhead.
 (elab more on calib)
 
-4. End Music
+5. End Music
 The end music is played through the buzzer on the mBot. It is a very simplified version of Astronomia, and the values of frequencies of each
 note was taken from the makeblock example codes for the buzzer test. 
 
