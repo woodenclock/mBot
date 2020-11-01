@@ -24,14 +24,16 @@ To achieve movement toward the left, the left motor spins in the forward directi
 Forward:
 To achieve movement in the forward direction, both the motors spin at the same time in the same direction.
 U turn to the right:
-We implement the movement in the right direction, but we pause the program for more time by increasing the argument to the delay() function.
+We implement the movement in the right direction, but we allow the motors to move towards the right for
+more time by increasing the argument to the delay() function.
 U turn to the left:
-We implement the movement in the left direction, but we pause the program for more time by increasing the argument to the delay() function.
+We implement the movement in the left direction, but we allow the motors to move towards the left for
+more time by increasing the argument to the delay() function.
 
 2. IR sensors
 
-3.. Colour sensors(Black Line)
-There are two IR sensors at the base of the mBot. If both the IR sensors are within the black line, the mBot stops and solves the waypoint(Color Detection) challenge,else
+3.Colour sensors(Black Line)
+The Me Color Sensor is at the base of the mBot. If the sensors are within the black line, the mBot stops and solves the waypoint(Color Detection) challenge,else
 it continues to move.
 
 4. Color Challenge Color Detection
