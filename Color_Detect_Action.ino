@@ -153,7 +153,7 @@ void colour_check(){
     yellow();
     count = 3;
   }
-  else if(abs(RED-GREEN) < 20 && BLUE < RED) {
+  else if(abs(RED-GREEN) < 20 && BLUE > RED) {
     purple(); 
     count = 3;
   }
