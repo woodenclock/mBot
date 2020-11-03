@@ -53,7 +53,20 @@ motor_left.run(-motorSpeed);
 //Detect Black Strip
 bool black_strip()
 {
-  //Line follower code
+   switch(sensorState)
+  {
+    case S1_IN_S2_IN:
+    colour_challenge();
+    break;
+    case S1_IN_S2_OUT: 
+    case S1_OUT_S2_IN: 
+    case S1_OUT_S2_OUT:
+    motor_right.run(+motorSpeed); 
+    motor_left.run(-motorSpeed); 
+    break;
+    default: 
+    break;
+  }//Line follower code
 }
 
 //Ultrasound (distance from wall)
