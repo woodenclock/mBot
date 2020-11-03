@@ -49,7 +49,7 @@ MeDCMotor motor_right(M1);
 MeDCMotor motor_left(M2);
 
 //Initialize the mBOts speed
-uint8_t motorSpeed = 150;
+uint8_t motorSpeed = 200;
 
 //color var def
 double r;
@@ -135,11 +135,33 @@ int noteDurations[] = {
   };
   
 void setup() {
-  //insert starting music(mario kart)
+ 
 }
 
 void loop() {
   mbotactions();
+}
+
+void autocorrection() {
+  int Right_IR = analogRead(A0);//Left sensor
+int Left_IR = analogRead(A1);//Right sensor
+  if(Right_IR>300 && Left_IR>200)//In the event of no obstacle being detected by any of the sensors
+  {   
+      motor_right.run(+motorSpeed);
+  motor_left.run(-motorSpeed);
+  }
+  else if(Right_IR<300)//If the right sensor is near an obstacle
+  {    
+  motor_right.run(+motorSpeed);
+  motor_left.run(+motorSpeed);
+      delay(5);
+  }
+  else if(Left_IR<200)//If the left sensor is near an obstacle
+  {   
+       motor_right.run(-motorSpeed);
+  motor_left.run(-motorSpeed);
+      delay(5);
+  }
 }
 
 void mbotactions(){
@@ -154,8 +176,7 @@ void mbotactions(){
     break;
     case S1_OUT_S2_OUT:
     //include IR rectification
-    motor_right.run(+motorSpeed); 
-    motor_left.run(-motorSpeed); 
+    autocorrection();
     break;
     default: 
     break;
@@ -166,14 +187,14 @@ void mbotactions(){
 void turn_left() {//change delay to change left turn angle
   motor_right.run(+motorSpeed); 
   motor_left.run(+motorSpeed);
-  delay(370);
+  delay(320);
 }
 
 //To turn right
 void turn_right() {
   motor_right.run(-motorSpeed); 
   motor_left.run(-motorSpeed);
-  delay(370);
+  delay(320);
 }
 
 //Play victory music
@@ -202,8 +223,7 @@ void blue() {
   turn_right();
   float dist = ultraSensor.distanceCm();
   while(dist > 9) {
-    motor_right.run(+motorSpeed); 
-    motor_left.run(-motorSpeed);
+    autocorrection();
     dist = ultraSensor.distanceCm();
   }
   motor_right.stop();
@@ -215,8 +235,15 @@ void blue() {
 
 //U-Turn
 void yellow(){
+  int Right_IR = analogRead(A0);//Left sensor
+  int Left_IR = analogRead(A1);//Right sensor
+  if (Right_IR < Left_IR - 100) {
   turn_left();
-  turn_left();
+  turn_left();}
+  else {
+    turn_right();
+    turn_right();
+  }
 }
 
 //Two successive left turns in two grids
@@ -224,8 +251,7 @@ void purple(){
   turn_left();
   float dist = ultraSensor.distanceCm();
   while(dist > 9) {
-    motor_right.run(+motorSpeed); 
-    motor_left.run(-motorSpeed);
+    autocorrection();
     dist = ultraSensor.distanceCm();
   }
   motor_right.stop();
@@ -258,7 +284,8 @@ void colour_check(){
 
   rgbled.setColor(0,0,0);
   rgbled.show();
-  
+
+
   if (RED < 20 && GREEN < 20 && BLUE < 20) {
     black();
     break;
@@ -267,7 +294,7 @@ void colour_check(){
     red();
     break;
   }
-  else if (RED > 200 & RED > GREEN && GREEN > BLUE) {
+  else if (RED > 130 & RED > GREEN && abs(GREEN-BLUE)>25) {
     yellow();
     break;
   }
