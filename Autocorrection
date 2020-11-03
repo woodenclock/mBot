@@ -1,0 +1,31 @@
+#include "MeMCore.h"
+MeDCMotor motor_right(M1);
+
+MeDCMotor motor_left(M2);
+uint8_t motorSpeed = 150;
+void setup()
+{
+}
+void loop() {
+int Right_IR = analogRead(A0);//Left sensor
+int Left_IR = analogRead(A1);//Right sensor
+  if(Right_IR>300 && Left_IR>300)//In the event of no obstacle being detected by any of the sensors
+  {   
+      motor_right.run(+motorSpeed);
+  motor_left.run(-motorSpeed);
+  }
+  else if(Right_IR<300)//If the right sensor is near an obstacle
+  {   
+       
+  motor_right.run(+motorSpeed);
+  motor_left.run(+motorSpeed);
+      delay(20);
+  }
+  else if(Left_IR<300)//If the left sensor is near an obstacle
+  {   
+  
+       motor_right.run(-motorSpeed);
+  motor_left.run(-motorSpeed);
+      delay(20);
+  }
+}
