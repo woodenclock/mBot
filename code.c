@@ -134,6 +134,17 @@ void lightblue_task(){
  right_turn();
   }
 }
+void music()
+                {
+                    for (int thisNote = 0; thisNote < 112; thisNote++) {
+    int noteDuration = 750 / noteDurations[thisNote];
+    tone(7, melody[thisNote], noteDuration);
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    
+    noTone(7);
+  }
+                }
 
 //black (make noise)
 void black_task(){
