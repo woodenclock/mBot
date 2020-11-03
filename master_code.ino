@@ -1,12 +1,19 @@
 /** 
- * Master Code
+ *  An arduino code using c++ which allows the mBot to complete a given maze filled with waypoint challenges.
+ *  The mBot moves until it detects the black strip and stops . After which it does the color challenge and
+ *  based on that it performs the wanted movement.
+ *  
+ *  Team members :
+ *  Alvin
+ *  Kishor
+ *  Sung Min
+ *  Svetha
  */
-
-//libraries
+// Libraries 
 #include "MeMCore.h"
 #include "Wire.h"
 
-//Macros(sound and color)
+//Macros(sound and color definition)
 #define RED colorarr[0]
 #define GREEN colorarr[1]
 #define BLUE colorarr[2]
@@ -30,16 +37,18 @@
 #define NOTE_AS5 932
 #define NOTE_B5  988
 
-//Init ports for the different sensors
+//Initialize ports for the different sensors
 MeLineFollower lineFinder(PORT_2); 
 MeUltrasonicSensor ultraSensor(PORT_3);
 MeLightSensor lightsensor(PORT_6);
 MeRGBLed rgbled(PORT_7);
 MeBuzzer buzzer;
 
-//init motors
+//Initialize motors
 MeDCMotor motor_right(M1);
 MeDCMotor motor_left(M2);
+
+//Initialize the mBOts speed
 uint8_t motorSpeed = 150;
 
 //color var def
@@ -87,6 +96,8 @@ int melody[] = {
   NOTE_G4,0, NOTE_G4, NOTE_AS5,
   NOTE_A5, NOTE_AS5, NOTE_A5, NOTE_AS5
  };
+ 
+//Duration of each notes
 int noteDurations[] = {
   4,4,4,4,
   4,4,4,4,
@@ -124,7 +135,7 @@ int noteDurations[] = {
   };
   
 void setup() {
-  Serial.begin(9600);
+  //insert starting music(mario kart)
 }
 
 void loop() {
@@ -141,9 +152,8 @@ void mbotactions(){
     motor_left.stop();
     colour_check();
     break;
-    case S1_IN_S2_OUT: 
-    case S1_OUT_S2_IN: 
     case S1_OUT_S2_OUT:
+    //include IR rectification
     motor_right.run(+motorSpeed); 
     motor_left.run(-motorSpeed); 
     break;
@@ -152,42 +162,46 @@ void mbotactions(){
   }
 }
 
+//To turn left
 void turn_left() {//change delay to change left turn angle
   motor_right.run(+motorSpeed); 
   motor_left.run(+motorSpeed);
   delay(370);
 }
 
+//To turn right
 void turn_right() {
   motor_right.run(-motorSpeed); 
   motor_left.run(-motorSpeed);
   delay(370);
 }
 
+//Play victory music
 void black(){
   for (int thisNote = 0; thisNote < 112; thisNote++) {
     int noteDuration = 375 / noteDurations[thisNote];
     buzzer.tone(melody[thisNote], noteDuration);
     int pauseBetweenNotes = noteDuration * 1.00;
     delay(pauseBetweenNotes);
-    
     buzzer.noTone();
   }
 }
 
+//Turn left
 void red(){
   turn_left();
 }
 
+//Turn right
 void green() {
   turn_right();
 }
 
+//Two successive right turns in two grids
 void blue() {
   turn_right();
   float dist = ultraSensor.distanceCm();
   while(dist > 9) {
-    Serial.println(dist);
     motor_right.run(+motorSpeed); 
     motor_left.run(-motorSpeed);
     dist = ultraSensor.distanceCm();
@@ -199,11 +213,13 @@ void blue() {
   
 }
 
+//U-Turn
 void yellow(){
   turn_left();
   turn_left();
 }
 
+//Two successive left turns in two grids
 void purple(){
   turn_left();
   float dist = ultraSensor.distanceCm();
@@ -218,6 +234,7 @@ void purple(){
   turn_left();
 }
 
+//Color Challenge
 void colour_check(){
   int count = 0;
   while (count < 3) { // checks a max of 3 times. If fail detect all 3 times, the robot will just continue going forward and crash
@@ -235,36 +252,36 @@ void colour_check(){
   rgbled.show();
   delay(100);
   b = lightsensor.read(); 
-  colorarr[0]= 255 * (r-blackcalibarr[0])/grayarr[0];
-  colorarr[1]= 255 * (g-blackcalibarr[1])/grayarr[1];
-  colorarr[2]= 255 * (b-blackcalibarr[2])/grayarr[2];
+  RED = 255 * (r-blackcalibarr[0])/grayarr[0];
+  GREEN = 255 * (g-blackcalibarr[1])/grayarr[1];
+  BLUE = 255 * (b-blackcalibarr[2])/grayarr[2];
 
   rgbled.setColor(0,0,0);
   rgbled.show();
   
   if (RED < 20 && GREEN < 20 && BLUE < 20) {
     black();
-    count = 3;
+    break;
   }
   else if (abs(GREEN-BLUE) < 20 && RED > GREEN) {
     red();
-    count = 3;
+    break;
   }
   else if (RED > 200 & RED > GREEN && GREEN > BLUE) {
     yellow();
-    count = 3;
+    break;
   }
   else if(abs(RED-GREEN) < 20 && BLUE > RED) {
     purple(); 
-    count = 3;
+    break;
   }
   else if(abs(GREEN-BLUE) < 20 && RED < GREEN) {
     blue();
-    count = 3;
+    break;
   }
   else if(abs(RED-BLUE) < 20 && GREEN > BLUE) {
     green();
-    count = 3;
+    break;
   }
   else {
     count += 1;
