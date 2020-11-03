@@ -49,7 +49,7 @@ void setup(){
   else if (RED > 200 & RED > GREEN && GREEN > BLUE) {
     Serial.println("Yellow");
   }
-  else if(abs(RED-GREEN) < 20 && BLUE < RED) {
+  else if(abs(RED-GREEN) < 20 && BLUE > RED) {
     Serial.println("Purple");
   }
   else if(abs(GREEN-BLUE) < 20 && RED < GREEN) {
