@@ -1,9 +1,12 @@
 /** 
- * Drives to a black strip, detects the color above and carries out an action
+ * Master Code
  */
 
+//libraries
 #include "MeMCore.h"
 #include "Wire.h"
+
+//Macros(sound and color)
 #define RED colorarr[0]
 #define GREEN colorarr[1]
 #define BLUE colorarr[2]
@@ -27,26 +30,27 @@
 #define NOTE_AS5 932
 #define NOTE_B5  988
 
+//Init ports for the different sensors
 MeLineFollower lineFinder(PORT_2); 
-
 MeUltrasonicSensor ultraSensor(PORT_3);
-
 MeLightSensor lightsensor(PORT_6);
 MeRGBLed rgbled(PORT_7);
-
 MeBuzzer buzzer;
+
+//init motors
 MeDCMotor motor_right(M1);
 MeDCMotor motor_left(M2);
 uint8_t motorSpeed = 150;
 
+//color var def
 double r;
 double g;
 double b;
-
-float blackcalibarr[]={376,280,309};
-float grayarr[]={229,173,184};
+float blackcalibarr[]={376,280,309}; //from calibration
+float grayarr[]={229,173,184}; //from calibration
 float colorarr[]={0,0,0};
 
+//definition for music
 int melody[] = {
   NOTE_A4, 0, NOTE_A4, NOTE_A4,
   NOTE_C5, 0, NOTE_AS4, NOTE_A4, 
