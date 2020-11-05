@@ -11,7 +11,6 @@
  */
 // Libraries 
 #include "MeMCore.h"
-#include "Wire.h"
 
 //Macros(sound and color definition)
 #define RED colorarr[0]
