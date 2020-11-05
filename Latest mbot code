@@ -194,7 +194,7 @@ void turn_left() {//change delay to change left turn angle
 void turn_right() {
   motor_right.run(-motorSpeed_R); 
   motor_left.run(-motorSpeed_L);
-  delay(245);
+  delay(250);
 }
 
 //Play victory music
