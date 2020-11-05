@@ -1,12 +1,12 @@
 /** 
  *  An arduino code using c++ which allows the mBot to complete a given maze filled with waypoint challenges.
- *  The mBot moves until it detects the black strip and stops . After which it does the color challenge and
- *  based on that it performs the wanted movement.
+ *  The mBot moves until it detects the black strip and stops . 
+ *  After which it detects the color above  and performs the required manoeuvre.
  *  
  *  Team members :
  *  Alvin
  *  Kishor
- *  Sung Min
+ *  Sungmin
  *  Svetha
  */
 // Libraries 
@@ -263,7 +263,7 @@ void purple(){
 //Color Challenge
 void colour_check(){
   int count = 0;
-  while (count < 3) { // checks a max of 3 times. If fail detect all 3 times, the robot will just continue going forward and crash
+  while (count < 3) { // checks a max of 3 times.
   rgbled.setColor(255,0,0);
   rgbled.show();
   delay(100);
