@@ -49,8 +49,8 @@ MeDCMotor motor_right(M1);
 MeDCMotor motor_left(M2);
 
 //Initialize the mBOts speed
-uint8_t motorSpeed_R = 225;
-uint8_t motorSpeed_L = 240;
+uint8_t motorSpeed_R = 235;
+uint8_t motorSpeed_L = 235;
 //color var def
 double r;
 double g;
@@ -237,12 +237,15 @@ void blue() {
 void yellow(){
   int Right_IR = analogRead(A0);//Left sensor
   int Left_IR = analogRead(A1);//Right sensor
-  if (Right_IR < Left_IR + 80) {
-  turn_left();
-  turn_left();}
+  if (Right_IR < Left_IR) {
+  motor_right.run(+motorSpeed_R); 
+  motor_left.run(+motorSpeed_L);
+  delay(490);
+  }
   else {
-    turn_right();
-    turn_right();
+     motor_right.run(-motorSpeed_R); 
+  motor_left.run(-motorSpeed_L);
+  delay(485);
   }
 }
 
