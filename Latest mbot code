@@ -51,12 +51,12 @@ MeDCMotor motor_left(M2);
 //Initialize the mBOts speed
 uint8_t motorSpeed_R = 225;
 uint8_t motorSpeed_L = 245;
-//color var def
+//defining the color variables
 double r;
 double g;
 double b;
 float blackcalibarr[]={376,280,309}; //from calibration
-float grayarr[]={229,173,184}; //from calibration
+float grayarr[]={229,173,184}; //from calibration (the scale)
 float colorarr[]={0,0,0};
 
 //definition for music
@@ -135,13 +135,14 @@ int noteDurations[] = {
   };
   
 void setup() {
- 
+ //nothing here, everything is in the loop
 }
 
 void loop() {
   mbotactions();
 }
 
+//code responsible for preventing the mBot from running into the walls on its sides
 void autocorrection() {
   int Right_IR = analogRead(A0);//Left sensor
 int Left_IR = analogRead(A1);//Right sensor
@@ -164,21 +165,22 @@ int Left_IR = analogRead(A1);//Right sensor
   }
 }
 
+//function encapsulating the main tasks of the mbot
 void mbotactions(){
   //check for black strip
   int sensorState = lineFinder.readSensors();
   switch(sensorState)
   {
-    case S1_IN_S2_IN:
+    case S1_IN_S2_IN://represents that both sides of the line sensor are in the black strip.
     motor_right.stop();
     motor_left.stop();
     colour_check();
     break;
-    case S1_OUT_S2_OUT:
+    case S1_OUT_S2_OUT://represents that boths sides are out of black strip.
     //include IR rectification
     autocorrection();
     break;
-    default: 
+    default: //if ony 1 is inside, it will continue what it was already doing before 1 sensor detected a strip(i.e. approaching a strip from the side)
     break;
   }
 }
@@ -266,7 +268,7 @@ void purple(){
 //Color Challenge
 void colour_check(){
   int count = 0;
-  while (count < 3) { // checks a max of 3 times. If fail detect all 3 times, the robot will just continue going forward and crash
+  while (count <= 3) { //the mBot will try to detect the color 3 times. If it fails, it will just turn to the right
   rgbled.setColor(255,0,0);
   rgbled.show();
   delay(100);
@@ -315,6 +317,10 @@ void colour_check(){
   }
   else {
     count += 1;
+    if (count == 3) {
+      turn_right();
+      break;
+      }
   }
   }
 }
