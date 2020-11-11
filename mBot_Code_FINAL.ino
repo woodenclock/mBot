@@ -146,18 +146,18 @@ void loop() {
 void autocorrection() {
   int Right_IR = analogRead(A0);//Left sensor
   int Left_IR = analogRead(A1);//Right sensor
-  if(Right_IR>250 && Left_IR>200)//In the event of no obstacle being detected by any of the sensors
+  if(Right_IR>250 && Left_IR>200)//In the event of no obstacle being detected by any of the sensors, move straight
   {   
       motor_right.run(+motorSpeed_R);
   motor_left.run(-motorSpeed_L);
   }
-  else if(Right_IR<250)//If the right sensor is near an obstacle
+  else if(Right_IR<250)//If the right sensor is near an obstacle, shift left
   {    
       motor_right.run(+motorSpeed_R);
       motor_left.run(+motorSpeed_L-10);
       delay(1);
   }
-  else if(Left_IR<200)//If the left sensor is near an obstacle
+  else if(Left_IR<200)//If the left sensor is near an obstacle, shift right
   {   
       motor_right.run(-motorSpeed_R);
       motor_left.run(-motorSpeed_L-10);
@@ -171,7 +171,7 @@ void mbotactions(){
   int sensorState = lineFinder.readSensors();
   switch(sensorState)
   {
-    case S1_IN_S2_IN://represents that both sides of the line sensor are in the black strip.
+    case S1_IN_S2_IN://represents that both sides of the line sensor are in the black strip and the mBot stops.
     motor_right.stop();
     motor_left.stop();
     colour_check();
@@ -202,11 +202,11 @@ void turn_right() {//change delay to chang right turn angle
 //Play victory music
 void black(){
   for (int thisNote = 0; thisNote < 112; thisNote++) {
-    int noteDuration = 375 / noteDurations[thisNote];
-    buzzer.tone(melody[thisNote], noteDuration);
-    int pauseBetweenNotes = noteDuration * 1.00;
+    int noteDuration = 375 / noteDurations[thisNote]; // Calculation of note duration
+    buzzer.tone(melody[thisNote], noteDuration); // Send signal to the buzzer to play tone
+    int pauseBetweenNotes = noteDuration * 1.00; // Pause of beep inbetween tones
     delay(pauseBetweenNotes);
-    buzzer.noTone();
+    buzzer.noTone(); // Tone stops
   }
 }
 
@@ -223,8 +223,8 @@ void green() {
 //Two successive right turns in two grids
 void blue() {
   turn_right();
-  float dist = ultraSensor.distanceCm();
-  while(dist > 9) {
+  float dist = ultraSensor.distanceCm(); // Measures the distance between the wall and the mBot itself
+  while(dist > 9) { // Moves until the mBot is greater than 9cm away from the wall
     autocorrection();
     dist = ultraSensor.distanceCm();
   }
@@ -239,12 +239,12 @@ void blue() {
 void yellow(){
   int Right_IR = analogRead(A0);//Left sensor
   int Left_IR = analogRead(A1);//Right sensor
-  if (Right_IR < Left_IR-15) {
+  if (Right_IR < Left_IR-15) { // U turns from the left
   motor_right.run(+motorSpeed_R); 
   motor_left.run(+motorSpeed_L);
   delay(454);
   }
-  else {
+  else { // U turns from the right
   motor_right.run(-motorSpeed_R); 
   motor_left.run(-motorSpeed_L);
   delay(452);
@@ -254,8 +254,8 @@ void yellow(){
 //Two successive left turns in two grids
 void purple(){
   turn_left();
-  float dist = ultraSensor.distanceCm();
-  while(dist > 9) {
+  float dist = ultraSensor.distanceCm(); // Measures the distance between the wall and the mBot itself
+  while(dist > 9) { // Moves until the mBot is greater than 9cm away from the wall
     autocorrection();
     dist = ultraSensor.distanceCm();
   }
@@ -282,14 +282,15 @@ void colour_check(){
   rgbled.show();
   delay(100);
   b = lightsensor.read(); 
+  // Values of R,G,B are calculated based on the range detected above
   RED = 255 * (r-blackcalibarr[0])/grayarr[0];
   GREEN = 255 * (g-blackcalibarr[1])/grayarr[1];
   BLUE = 255 * (b-blackcalibarr[2])/grayarr[2];
 
   rgbled.setColor(0,0,0);
   rgbled.show();
-
-
+// Based on the light sensor reading if the outputs for the light intensity of each color(R,G,B)
+// falls under any of the below ranges, specified color is detected and an action is performed
   if (RED < 20 && GREEN < 20 && BLUE < 20) {
     black();
   }
