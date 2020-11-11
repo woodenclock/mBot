@@ -267,16 +267,17 @@ void purple(){
 
 //Color Challenge
 void colour_check(){
+  //turns on red led and measures reflected intensity
   rgbled.setColor(255,0,0);
   rgbled.show();
   delay(100);
   r = lightsensor.read();
-
+  //turns on green led and measures reflected intensity
   rgbled.setColor(0,255,0);
   rgbled.show();
   delay(100);
   g = lightsensor.read();
-
+  //turns on blue led and measures reflected intensity
   rgbled.setColor(0,0,255);
   rgbled.show();
   delay(100);
