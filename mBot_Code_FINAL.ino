@@ -6,7 +6,7 @@
  *  Team members :
  *  Alvin
  *  Kishor
- *  Sung Min
+ *  Sungmin
  *  Svetha
  */
 // Libraries 
